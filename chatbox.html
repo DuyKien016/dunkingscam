@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DunkingScam AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-blue": "#1e40af",
+              "secondary-blue": "#3b82f6",
+              "light-blue": "#dbeafe",
+              "dark-blue": "#1e3a8a",
+              "accent-blue": "#60a5fa",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-br from-light-blue via-blue-50 to-accent-blue/20"
+  >
+    <div class="container mx-auto max-w-4xl h-screen flex flex-col">
+      <!-- Header -->
+      <div
+        class="bg-gradient-to-r from-primary-blue to-dark-blue text-white p-4 rounded-t-lg shadow-lg"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center"
+          >
+            <svg
+              class="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-xl font-bold">DunkingScam AI</h1>
+            <p class="text-blue-100 text-sm">Đoạn hội thoại an toàn</p>
+          </div>
+          <div class="ml-auto flex items-center space-x-2">
+            <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+            <span class="text-sm">Online</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Container -->
+      <div class="flex-1 bg-white relative overflow-hidden">
+        <!-- Chat Messages -->
+        <div
+          id="chatMessages"
+          class="h-full overflow-y-auto p-4 pb-24 scroll-smooth"
+        >
+          <!-- Welcome Message -->
+          <div class="flex justify-start mb-4">
+            <div class="max-w-xs lg:max-w-md">
+              <div
+                class="bg-gray-100 text-gray-800 rounded-lg rounded-tl-none px-4 py-2 shadow-sm"
+              >
+                <p class="text-sm">
+                  👋 Xin chào! Mình là trợ lý AI giúp phát hiện lừa đảo. Bạn có
+                  thể:<br />
+                  1️⃣ Gửi tin nhắn để mình phân tích.<br />
+                  2️⃣ Tải ảnh (ví dụ: ảnh tin nhắn) để mình kiểm tra. <br />Mình
+                  sẽ trả kết quả ngay sau khi phân tích.
+                </p>
+              </div>
+              <div class="flex items-center mt-1 text-xs text-gray-500">
+                <div class="w-4 h-4 bg-secondary-blue rounded-full mr-2"></div>
+                <span>AI Assistant • now</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div id="typingIndicator" class="hidden absolute bottom-24 left-4">
+          <div class="flex justify-start">
+            <div class="max-w-xs lg:max-w-md">
+              <div
+                class="bg-gray-100 text-gray-800 rounded-lg rounded-tl-none px-4 py-3 shadow-sm"
+              >
+                <div class="typing-animation flex space-x-1">
+                  <div class="dot bg-gray-500"></div>
+                  <div class="dot bg-gray-500"></div>
+                  <div class="dot bg-gray-500"></div>
+                </div>
+              </div>
+              <div class="flex items-center mt-1 text-xs text-gray-500">
+                <div class="w-4 h-4 bg-secondary-blue rounded-full mr-2"></div>
+                <span>Đang phân tích...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Input -->
+        <div
+          class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4"
+        >
+          <form id="messageForm" class="flex items-end space-x-3">
+            <!-- File Input (Hidden) -->
+            <input type="file" id="fileInput" accept="image/*" class="hidden" />
+
+            <!-- Attachment Button -->
+            <button
+              type="button"
+              id="attachButton"
+              class="flex-shrink-0 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-200"
+            >
+              <svg
+                class="w-5 h-5 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+                ></path>
+              </svg>
+            </button>
+
+            <!-- Message Input -->
+            <div class="flex-1 min-h-[2.5rem] max-h-32 relative">
+              <textarea
+                id="messageInput"
+                placeholder="Type your message or upload an image..."
+                class="w-full resize-none rounded-lg border border-gray-300 focus:border-secondary-blue focus:ring focus:ring-secondary-blue/20 px-4 py-2 pr-12 transition-all duration-200 outline-none"
+                rows="1"
+              ></textarea>
+
+              <!-- Image Preview -->
+              <div
+                id="imagePreview"
+                class="hidden absolute bottom-full left-0 mb-2 p-2 bg-white border border-gray-200 rounded-lg shadow-lg"
+              >
+                <div class="relative">
+                  <img
+                    id="previewImage"
+                    src=""
+                    alt="Preview"
+                    class="max-w-xs max-h-32 rounded"
+                  />
+                  <button
+                    type="button"
+                    id="removeImage"
+                    class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Send Button -->
+            <button
+              type="submit"
+              id="sendButton"
+              class="flex-shrink-0 w-10 h-10 bg-secondary-blue hover:bg-primary-blue text-white rounded-full flex items-center justify-center transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                ></path>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
