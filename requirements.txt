@@ -1,5 +1,6 @@
-flask
-torch
+streamlit
 transformers
-Pillow
+torch
 torchvision
+pillow
+huggingface-hub
